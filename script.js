@@ -12,16 +12,19 @@ const bookList = [
     title: 'Hamlet'
   }
 ];
-const searchInput = document.children[0].children[1].children[1].children[1];
-console.log(searchInput);
 
-function handleKeyPress(input) {
+/* const searchField = document.children[0].children[1].children[1].children[1]; */
+console.log(searchField);
+
+searchField.addEventListener('keyup', handleKeyPress);
+
+function handleKeyPress(e) {
   /*  Ta emot/läsa av värdet i inputfältet. 
       Skicka värdet till searchBooks
       searchBooks returnerar en filtrerad lista
       Filtrerade listan skickas till renderBookList
   */
-  searchBooks(input);
+  searchBooks(e.target.value);
 }
 
 function searchBooks(searchTerm) {
@@ -46,5 +49,3 @@ function renderBookList(list) {
   /* Element i HTML-listan visas/döljs beroende på listans innehåll.  */
   console.log(list);
 }
-
-handleKeyPress('e');
