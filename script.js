@@ -12,7 +12,8 @@ const bookList = [
     title: 'Hamlet'
   }
 ];
-const searchInput = null;
+const searchInput = document.children[0].children[1].children[1].children[1];
+console.log(searchInput);
 
 function handleKeyPress(input) {
   /*  Ta emot/läsa av värdet i inputfältet. 
