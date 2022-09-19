@@ -1,29 +1,22 @@
 'use strict';
-/* 59 rader kod */
-const bookList = [
-  {
-    id: 1,
-    author: 'Charles Dickens',
-    title: 'Oliver Twist'
-  },
-  {
-    id: 2,
-    author: 'William Shakespear',
-    title: 'Hamlet'
-  }
-];
 
-/* searchField.addEventListener('keyup', (e) => searchBooks(e.target.value)); */
-searchField.addEventListener('keyup', (e) =>
+let bookList = [];
+
+window.addEventListener('load', () => {
+  getAll().then((apiBooks) => (bookList = apiBooks));
+});
+
+searchField.addEventListener('keyup', (e) => searchBooks(e.target.value));
+/* searchField.addEventListener('keyup', (e) =>
   renderBookList(
     bookList.filter(({ title, author }) => {
       const searchTerm = e.target.value.toLowerCase();
       return title.toLowerCase().indexOf(searchTerm) >= 0 || author.toLowerCase().indexOf(searchTerm) >= 0;
     })
   )
-);
+); */
 
-/* function searchBooks(searchTerm) {
+async function searchBooks(searchTerm) {
   renderBookList(
     bookList.filter(
       ({ title, author }) =>
@@ -32,18 +25,13 @@ searchField.addEventListener('keyup', (e) =>
     )
   );
 }
- */
-function renderBookList(bookList) {
-  /* Element i HTML-listan visas/döljs beroende på listans innehåll.  */
 
+function renderBookList(bookList) {
   const existingElement = document.querySelector('.book-list');
   console.log(existingElement);
 
   const root = document.getElementById('root');
-  if (existingElement) {
-    root.removeChild(existingElement);
-  }
-  if (bookList.length > 0) {
-    root.insertAdjacentHTML('beforeend', BookList(bookList));
-  }
+
+  existingElement && root.removeChild(existingElement);
+  bookList.length > 0 && searchField.value && root.insertAdjacentHTML('beforeend', BookList(bookList));
 }
