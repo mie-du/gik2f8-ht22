@@ -18,15 +18,28 @@ class Api {
       }
     });
 
-    console.log(request);
-
     return fetch(request)
       .then((result) => result.json())
       .then((data) => data)
       .catch((err) => console.log(err));
   }
 
-  getAll() {}
+  getAll() {
+    return fetch(this.url)
+      .then((result) => result.json())
+      .then((data) => data)
+      .catch((err) => console.log(err));
+  }
 
-  remove() {}
+  /* delete = DELETE */
+  remove(id) {
+    console.log(`Delete-request to url ${this.url}/${id}`);
+
+    return fetch(`${this.url}/${id}`, {
+      method: 'DELETE'
+    })
+      .then((result) => result.json())
+      .then((data) => data)
+      .catch((err) => console.log(err));
+  }
 }

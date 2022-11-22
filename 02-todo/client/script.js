@@ -7,6 +7,8 @@ todoForm.dueDate.addEventListener('blur', (e) => validateField(e.target));
 
 todoForm.addEventListener('submit', onSubmit);
 
+const todoListElement = document.getElementById('todoList');
+
 let titleValid = true;
 let descriptionValid = true;
 let dueDateValid = true;
@@ -27,6 +29,7 @@ function validateField(field) {
         titleValid = false;
         validationMessage = "Fältet 'Titel' får inte innehålla mer än 100 tecken.";
       }
+      titleValid = true;
 
       break;
     }
@@ -35,7 +38,7 @@ function validateField(field) {
         descriptionValid = false;
         validationMessage = "Fältet 'Beskrvining' får inte innehålla mer än 500 tecken.";
       }
-
+      descriptionValid = true;
       break;
     }
     case 'dueDate': {
@@ -43,6 +46,7 @@ function validateField(field) {
         descriptionValid = false;
         validationMessage = "Fältet 'Slutförd senast' är obligatorisk.";
       }
+      dueDate = true;
 
       break;
     }
@@ -54,7 +58,6 @@ function validateField(field) {
 
 function onSubmit(e) {
   e.preventDefault();
-
   if (titleValid && descriptionValid && dueDateValid) {
     console.log('Submit');
     saveTask();
@@ -70,12 +73,50 @@ function onSubmit(e) {
 
     api.create(task).then((task) => {
       if (task) {
-        render();
+        renderList();
       }
     });
   }
 }
 
-function render() {
+function renderList() {
   console.log('rendering');
+  api.getAll().then((tasks) => {
+    if (tasks && tasks.length > 0) {
+      todoListElement.innerHTML = '';
+      tasks.forEach((task) => {
+        todoListElement.insertAdjacentHTML('beforeend', renderTask(task));
+      });
+    }
+  });
 }
+
+function renderTask({ id, title, description, dueDate }) {
+  let html = `
+    <li class="select-none mt-2 py-2 border-b border-amber-300">
+      <div class="flex items-center">
+        <h3 class="mb-3 flex-1 text-xl font-bold text-pink-800 uppercase">${title}</h3>
+        <div>
+          <span>${dueDate}</span>
+          <button onclick="deleteTask(${id})" class="inline-block bg-amber-500 text-xs text-amber-900 border border-white px-3 py-1 rounded-md ml-2">Ta bort</button>
+        </div>
+      </div>`;
+  description &&
+    (html += `
+      <p class="ml-8 mt-2 text-xs italic">${description}</p>
+  `);
+  html += `
+    </li>`;
+
+  return html;
+}
+
+function deleteTask(id) {
+  console.log(id);
+  api.remove(id).then((result) => {
+    console.log(result);
+    renderList();
+  });
+}
+
+renderList();
