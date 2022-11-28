@@ -10,7 +10,7 @@ app
   .use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', '*');
-    res.header('Access-Control-Allow-Method', '*');
+    res.header('Access-Control-Allow-Methods', '*');
 
     next();
   });
@@ -48,6 +48,7 @@ app.post('/tasks', async (req, res) => {
 });
 
 app.delete('/tasks/:id', async (req, res) => {
+  console.log(req);
   try {
     const id = req.params.id;
     const listBuffer = await fs.readFile('./tasks.json');
