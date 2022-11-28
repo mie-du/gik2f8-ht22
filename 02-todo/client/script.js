@@ -28,26 +28,27 @@ function validateField(field) {
       } else if (value.length > 100) {
         titleValid = false;
         validationMessage = "Fältet 'Titel' får inte innehålla mer än 100 tecken.";
+      } else {
+        titleValid = true;
       }
-      titleValid = true;
-
       break;
     }
     case 'description': {
       if (value.length > 500) {
         descriptionValid = false;
         validationMessage = "Fältet 'Beskrvining' får inte innehålla mer än 500 tecken.";
+      } else {
+        descriptionValid = true;
       }
-      descriptionValid = true;
       break;
     }
     case 'dueDate': {
       if (value.length === 0) {
         descriptionValid = false;
         validationMessage = "Fältet 'Slutförd senast' är obligatorisk.";
+      } else {
+        dueDateValid = true;
       }
-      dueDate = true;
-
       break;
     }
   }
@@ -62,28 +63,28 @@ function onSubmit(e) {
     console.log('Submit');
     saveTask();
   }
+}
 
-  function saveTask() {
-    const task = {
-      title: todoForm.title.value,
-      description: todoForm.description.value,
-      dueDate: todoForm.dueDate.value,
-      completed: false
-    };
+function saveTask() {
+  const task = {
+    title: todoForm.title.value,
+    description: todoForm.description.value,
+    dueDate: todoForm.dueDate.value,
+    completed: false
+  };
 
-    api.create(task).then((task) => {
-      if (task) {
-        renderList();
-      }
-    });
-  }
+  api.create(task).then((task) => {
+    if (task) {
+      renderList();
+    }
+  });
 }
 
 function renderList() {
   console.log('rendering');
   api.getAll().then((tasks) => {
+    todoListElement.innerHTML = '';
     if (tasks && tasks.length > 0) {
-      todoListElement.innerHTML = '';
       tasks.forEach((task) => {
         todoListElement.insertAdjacentHTML('beforeend', renderTask(task));
       });
@@ -112,9 +113,7 @@ function renderTask({ id, title, description, dueDate }) {
 }
 
 function deleteTask(id) {
-  console.log(id);
   api.remove(id).then((result) => {
-    console.log(result);
     renderList();
   });
 }
