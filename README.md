@@ -2,4 +2,6 @@
 
 Här lagras kod för kursen GIK2F8.
 
-Kommenterad för tydligare förklaring vad som händer i Lektion 4.
+## Labbar
+
+Kod för Lektion 4 (Utgångspunkt för Labb 1) är uppdaterad med kommentarer som beskriver vad som händer i koden.
