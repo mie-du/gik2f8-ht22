@@ -1,10 +1,11 @@
 /* I denna fil finns en klass för att hantera API-förfrågningar mot server (servern är det backend som skapades i lektion 5).
 
-Om ni vill testa denna kod, kom då ihåg att starta upp servern. Servern, såsom den ser ut i slutet av Lektion 6, finns i denna samma zip-fil. Om ni skulle köra denna kod mot backend såsom det såg ut efter Lektion 5, skulle det inte fungera, eftersom detta är koden såsom den ser ut efter Lektion 6 och några små förändringar gjordes även i servern under Lektion 6. 
+Om ni vill utgå från denna kod i er labb behöver ni först installera om node-paket och starta upp servern. Servern, såsom den ser ut i slutet av Lektion 6, finns i denna samma zip-fil. Om ni skulle köra denna kod mot backend såsom det såg ut efter Lektion 5, skulle det inte fungera, eftersom detta är koden såsom den ser ut efter Lektion 6 och några små förändringar gjordes även i servern under Lektion 6. 
 
-Gör då följande
+Gör då följande här i VS Code: 
 1. Öppna en terminal
-2. Skriv cd 02-todo/server (utan citattecken) och sedan enter
+2. Skriv "cd 02-todo/server" (utan citattecken) och sedan enter
+3. Skriv "npm install" (utan citattecken) och sedan enter
 3. Skriv "node app.js" (utan citattecken) och enter. 
 
 Om servern startats korrekt syns nu texten "Server running on http://localhost:5000".
